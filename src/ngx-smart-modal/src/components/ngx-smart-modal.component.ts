@@ -91,10 +91,13 @@ export class NgxSmartModalComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy() {
     this._ngxSmartModalService.removeModal(this.identifier);
+     if (typeof window !== 'undefined' && typeof document !== 'undefined') {
     window.removeEventListener('keyup', this.escapeKeyboardEvent);
+     
     if (!this._ngxSmartModalService.getModalStack.length) {
       this._renderer.removeClass(document.body, 'dialog-open');
     }
+     }
   }
 
   public open(top?: boolean): void {
